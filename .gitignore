@@ -1,0 +1,5 @@
+venv_py3/
+.idea/
+__pycache__/
+geckodriver.log
+secrets.py
