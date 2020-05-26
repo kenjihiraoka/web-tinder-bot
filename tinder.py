@@ -1,7 +1,7 @@
 from selenium import webdriver
 from time import sleep
 
-from secrets import face_email, face_password
+from secrets import face_email, face_password, cell_phone
 
 
 class Tinder:
@@ -18,6 +18,7 @@ class Tinder:
         )
         facebook_btn.click()
 
+        sleep(2)
         # switch to facebook login popup
         self.web_driver.switch_to_window(self.web_driver.window_handles[1])
 
@@ -38,6 +39,15 @@ class Tinder:
         login_btn.click()
 
         self.web_driver.switch_to_window(self.web_driver.window_handles[0])
+
+        sleep(5)
+        cell_phone = self.web_driver.find_element_by_xpath(
+            "/html/body/div[2]/div/div/div[1]/div[2]/div/input"
+        )
+        cell_phone.send_keys(cell_phone)
+        self.web_driver.find_element_by_xpath(
+            "/html/body/div[2]/div/div/div[1]/button"
+        ).click()
 
 
 if __name__ == '__main__':
