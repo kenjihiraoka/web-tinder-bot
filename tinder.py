@@ -62,6 +62,17 @@ class Tinder:
             "/html/body/div[2]/div/div/div[1]/button"
         ).click()
 
+    def tinder_home_page(self):
+        # allow use your geolocation
+        self.web_driver.find_element_by_xpath(
+            "/html/body/div[2]/div/div/div/div/div[3]/button[1]"
+        ).click()
+
+        # disable notification at web application
+        self.web_driver.find_element_by_xpath(
+            "/html/body/div[2]/div/div/div/div/div[3]/button[2]"
+        ).click()
+
 
 if __name__ == '__main__':
     bot = Tinder()
