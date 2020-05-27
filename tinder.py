@@ -13,13 +13,24 @@ class Tinder:
 
         sleep(5)
 
-        facebook_btn = self.web_driver.find_element_by_xpath(
-            "/html/body/div[2]/div/div/div/div/div[3]/span/div[2]/button"
-        )
-        facebook_btn.click()
+        if self.web_driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/div/div/div[3]/span/div[2]/button/span[2]"
+        ).text == "LOG IN WITH FACEBOOK":
+            # case the second button is Facebook login
+            self.click_face_login(facebook_xpath="/html/body/div[2]/div/div/div/div/div[3]/span/div[2]/button")
+        else:
+            # more options button case the second button is not Facebook login
+            self.web_driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/div/div/div[3]/span/button"
+            ).click()
+            self.click_face_login(facebook_xpath="/html/body/div[2]/div/div/div/div/div[3]/span/div[3]/button")
+
+    def click_face_login(self, facebook_xpath):
+        self.web_driver.find_element_by_xpath(
+            facebook_xpath
+        ).click()
 
         sleep(2)
-        # switch to facebook login popup
         self.web_driver.switch_to_window(self.web_driver.window_handles[1])
 
     def login(self):
@@ -41,10 +52,12 @@ class Tinder:
         self.web_driver.switch_to_window(self.web_driver.window_handles[0])
 
         sleep(5)
-        cell_phone = self.web_driver.find_element_by_xpath(
+        cell_phone_field = self.web_driver.find_element_by_xpath(
             "/html/body/div[2]/div/div/div[1]/div[2]/div/input"
         )
-        cell_phone.send_keys(cell_phone)
+
+        sleep(3)
+        cell_phone_field.send_keys(cell_phone)
         self.web_driver.find_element_by_xpath(
             "/html/body/div[2]/div/div/div[1]/button"
         ).click()
