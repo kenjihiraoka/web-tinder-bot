@@ -88,3 +88,25 @@ class Tinder:
         self.web_driver.find_element_by_xpath(
             "/html/body/div[2]/div/div/div/div/div[3]/button[2]"
         ).click()
+
+    def like(self):
+        sleep(5)
+        while True:
+            self.web_driver.find_element_by_xpath(
+                "/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button"
+            ).click()
+            sleep(3)
+
+            # in case it's a match
+            if self.check_element_exists("/html/body/div[1]/div/div[1]/div/main/div[2]/div/div/div[1]/div/div[2]/a"):
+                self.web_driver.find_element_by_xpath(
+                    "/html/body/div[1]/div/div[1]/div/main/div[2]/div/div/div[1]/div/div[2]/a"
+                ).click()
+            sleep(2)
+
+
+if __name__ == '__main__':
+    bot = Tinder()
+    bot.go_to_login_page()
+    bot.login()
+    bot.like()
