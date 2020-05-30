@@ -6,7 +6,12 @@ from secrets import face_email, face_password, cell_phone
 
 class Tinder:
     def __init__(self):
-        self.web_driver = webdriver.Firefox()
+        geo_allowed = webdriver.FirefoxOptions()
+        geo_allowed.set_preference('geo.prompt.testing', True)
+        geo_allowed.set_preference('geo.prompt.testing.allow', True)
+        geo_allowed.set_preference('geo.provider.network.url',
+                                   'data:application/json,{"location": {"lat": 51.47, "lng": 0.0}, "accuracy": 100.0}')
+        self.web_driver = webdriver.Firefox(options=geo_allowed)
 
     def go_to_login_page(self):
         self.web_driver.get("http://tinder.com")
@@ -30,7 +35,6 @@ class Tinder:
             facebook_xpath
         ).click()
 
-        sleep(2)
         self.web_driver.switch_to_window(self.web_driver.window_handles[1])
 
     def login(self):
