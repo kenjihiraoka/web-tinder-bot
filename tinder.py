@@ -1,3 +1,4 @@
+from selenium.common.exceptions import NoSuchElementException
 from selenium import webdriver
 from time import sleep
 
@@ -35,7 +36,15 @@ class Tinder:
             facebook_xpath
         ).click()
 
+        sleep(4)
         self.web_driver.switch_to_window(self.web_driver.window_handles[1])
+
+    def check_element_exists(self, path):
+        try:
+            self.web_driver.find_element_by_xpath(path)
+        except NoSuchElementException:
+            return False
+        return True
 
     def login(self):
         email = self.web_driver.find_element_by_xpath(
@@ -55,19 +64,22 @@ class Tinder:
 
         self.web_driver.switch_to_window(self.web_driver.window_handles[0])
 
-        sleep(5)
-        cell_phone_field = self.web_driver.find_element_by_xpath(
-            "/html/body/div[2]/div/div/div[1]/div[2]/div/input"
-        )
+        if self.check_element_exists("/html/body/div[2]/div/div/div[1]/div[2]/div/input"):
+            sleep(5)
+            cell_phone_field = self.web_driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/div[1]/div[2]/div/input"
+            )
 
-        sleep(3)
-        cell_phone_field.send_keys(cell_phone)
-        self.web_driver.find_element_by_xpath(
-            "/html/body/div[2]/div/div/div[1]/button"
-        ).click()
+            cell_phone_field.send_keys(cell_phone)
+            self.web_driver.find_element_by_xpath(
+                "/html/body/div[2]/div/div/div[1]/button"
+            ).click()
+            self.web_driver.switch_to_window(self.web_driver.window_handles[0])
+        self.tinder_home_page()
 
     def tinder_home_page(self):
         # allow use your geolocation
+        sleep(4)
         self.web_driver.find_element_by_xpath(
             "/html/body/div[2]/div/div/div/div/div[3]/button[1]"
         ).click()
@@ -76,9 +88,3 @@ class Tinder:
         self.web_driver.find_element_by_xpath(
             "/html/body/div[2]/div/div/div/div/div[3]/button[2]"
         ).click()
-
-
-if __name__ == '__main__':
-    bot = Tinder()
-    bot.go_to_login_page()
-    bot.login()
