@@ -31,7 +31,9 @@ Besides that steps, it's need add the driver to interface with the chosen browse
 | Firefox | https://github.com/mozilla/geckodriver/releases |
 | Opera | https://webkit.org/blog/6900/webdriver-support-in-safari-10/ |
 
-To load the app, it's only need run:
+Now, this bot only run at the Firefox browser.
+
+To load the app, it's only need to run the following command:
 ```
 $ python tinder.py
 ```
