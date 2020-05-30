@@ -39,9 +39,12 @@ class Tinder:
         sleep(4)
         self.web_driver.switch_to_window(self.web_driver.window_handles[1])
 
-    def check_element_exists(self, path):
+    def check_element_exists(self, path, element_type="xpath"):
         try:
-            self.web_driver.find_element_by_xpath(path)
+            if element_type == "xpath":
+                self.web_driver.find_element_by_xpath(path)
+            else:
+                self.web_driver.find_element_by_css_selector(path)
         except NoSuchElementException:
             return False
         return True
@@ -95,14 +98,12 @@ class Tinder:
             self.web_driver.find_element_by_xpath(
                 "/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button"
             ).click()
-            sleep(3)
+            sleep(1)
 
             # in case it's a match
-            if self.check_element_exists("/html/body/div[1]/div/div[1]/div/main/div[2]/div/div/div[1]/div/div[2]/a"):
-                self.web_driver.find_element_by_xpath(
-                    "/html/body/div[1]/div/div[1]/div/main/div[2]/div/div/div[1]/div/div[2]/a"
-                ).click()
-            sleep(2)
+            if self.check_element_exists(".Pt\(20px\)", element_type="css_selector"):
+                self.web_driver.find_element_by_css_selector(".Pt\(20px\)").click()
+            sleep(1)
 
 
 if __name__ == '__main__':
