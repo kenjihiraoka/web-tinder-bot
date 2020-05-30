@@ -68,17 +68,20 @@ class Tinder:
         self.web_driver.switch_to_window(self.web_driver.window_handles[0])
 
         if self.check_element_exists("/html/body/div[2]/div/div/div[1]/div[2]/div/input"):
-            sleep(5)
-            cell_phone_field = self.web_driver.find_element_by_xpath(
-                "/html/body/div[2]/div/div/div[1]/div[2]/div/input"
-            )
-
-            cell_phone_field.send_keys(cell_phone)
-            self.web_driver.find_element_by_xpath(
-                "/html/body/div[2]/div/div/div[1]/button"
-            ).click()
-            self.web_driver.switch_to_window(self.web_driver.window_handles[0])
+            self.sms_authentication()
         self.tinder_home_page()
+
+    def sms_authentication(self):
+        sleep(5)
+        cell_phone_field = self.web_driver.find_element_by_xpath(
+            "/html/body/div[2]/div/div/div[1]/div[2]/div/input"
+        )
+
+        cell_phone_field.send_keys(cell_phone)
+        self.web_driver.find_element_by_xpath(
+            "/html/body/div[2]/div/div/div[1]/button"
+        ).click()
+        self.web_driver.switch_to_window(self.web_driver.window_handles[0])
 
     def tinder_home_page(self):
         # allow use your geolocation
